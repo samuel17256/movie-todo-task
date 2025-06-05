@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f4f6;
+        margin: 0;
+        padding: 20px;
+      }
+
+      h1 {
+        text-align: center;
+        color: #333;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        max-width: 500px;
+        margin: 0 auto;
+        background-color: white;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      input[type="text"],
+      textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 16px;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 100px;
+      }
+
+      #btnCom {
+        padding: 10px;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+        text-align: center;
+        transition: background-color 0.3s ease;
+      }
+
+      #btnCom:hover {
+        background-color: #1d4ed8;
+      }
+
+      #output {
+        max-width: 500px;
+        margin: 30px auto 0;
+      }
+
+      #output > div {
+        background-color: #fff;
+        border-left: 4px solid #2563eb;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+
+      #output h1 {
+        font-size: 20px;
+        margin: 0 0 8px;
+        color: #111827;
+      }
+
+      #output p {
+        margin: 0;
+        color: #374151;
+      }
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Comment</title>
+  </head>
+  <body>
+    <!-- <div>
+
+      <h1>My comments</h1>
+      <div>
+        <form>
+          <input
+            type="text"
+            name="nameInput"
+            placeholder="type your name here"
+          />
+          <textarea
+            name="comment"
+            id="comment"
+            placeholder="type your comment here"
+          ></textarea>
+          <button id="btnCom">comment</button>
+        </form>
+       
+      </div>
+      <div id="result"></div>
+    </div> -->
+
+    <button
+      id="viewAll"
+      style="
+        margin-top: 20px;
+        padding: 10px;
+        background-color: #2563eb;
+        color: white;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+      "
+    >
+      View All Categories
+    </button>
+
+    <div id="output"></div>
+
+    <script>
+      // let btnComment = document.getElementById("btnCom");
+
+      // btnComment.addEventListener("click", (e) => {
+      //   e.preventDefault();
+
+      //   let nameI = document.querySelector("input[name=nameInput]").value;
+      //   let comments = document.querySelector("textarea[name=comment]").value;
+
+      //   if (nameI === "" || comments === "") {
+      //     alert`you must input something`;
+      //   } else {
+      //     let div = document.createElement("div");
+      //     div.innerHTML = `<h1>${nameI}</h1><p>${comments}</p>`;
+
+      //     document.getElementById("result").appendChild(div);
+
+      //     localStorage.setItem("Name Input", nameI);
+      //     localStorage.setItem("Comments", comments);
+
+      //    document.querySelector("input[name=nameInput]").value="";
+      //   document.querySelector("textarea[name=comment]").value="";
+
+      //   }
+      // })
+      let btnViewAll = document.getElementById("viewAll");
+      btnViewAll.addEventListener("click", (e) => {
+        e.preventDefault();
+        fetch("https://test.blockfuselabs.com/api/categories", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => response.json())
+          .then((result) => {
+            let categories = result.data;
+            let output = document.getElementById("output");
+            output.innerHTML = "";
+            categories.forEach((category) => {
+              let div = document.createElement("div");
+              div.innerHTML = `<h1>${category.name}</h1>`;
+              output.appendChild(div);
+            });
+          });
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Download Notification</title>
+</head>
+<body>
+    <button id="downloadBtn">Download</button>
+    <div id="downlodMessage"></div>
+
+    <div id="countdown">
+
+    </div>
+
+    <div>
+        <input type="text"  id="text-input">
+        <button id="btn">format</button>
+        <p id="bold" style="font-weight: 800;"></p>
+        <p id="upper" style="text-transform: uppercase;"></p>
+        <p id="red" style="background-color: red;"></p>
+    </div>
+
+
+    <script>
+        //1. Simulate a download notification. It should tell the user that "Download will start shortly", and after 5 seconds, it should tell the user "Download has started..."
+
+        // let btnDown=document.getElementById("downloadBtn");
+        // btnDown.addEventListener('click',(e)=>{
+        //     e.preventDefault();
+        //     if(btnDown.innerText=="Download"){
+        //         let downloadMessage=document.getElementById("downlodMessage");
+        //         downloadMessage.innerText="Download will start shortly";
+        //         setTimeout(()=>{
+        //             downloadMessage.innerText="Download has started...";
+        //         },5000);
+        //     }
+        // })
+
+    let btnFormat=document.getElementById("btn");
+    
+    btnFormat.addEventListener('click', (e) => {
+        let input=document.getElementById("text-input")
+
+        // let span=document.createElement("span");
+        // span.innerHTML=`${input.value}`
+
+        document.getElementById("bold").textContent=`${input.value}`
+        document.getElementById("upper").textContent=`${input.value}`
+        document.getElementById("red").textContent=`${input.value}`
+    })
+    </script>
+</body>
+</html>

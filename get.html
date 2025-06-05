@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+     <input type="number"  id="postId" placeholder="Enter post ID" />
+    <button id="btnPostId" style="margin-top: 20px; padding: 10px; background-color: #0f1a31; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">enter</button>
+    <div id="output">
+
+    </div> 
+
+    <script>
+           document.getElementById("btnPostId").addEventListener("click", function() {
+        let postId = document.getElementById("postId").value;
+
+        if (!postId) {
+           let outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = `<p style="color: red;">Please enter a post ID.</p>`;
+        }
+
+        fetch(`https://test.blockfuselabs.com/api/posts/${postId}`, {
+            method: "GET",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json"
+            },
+        })
+            .then(response =>  response.json()).then(data => {
+                let outputDiv = document.getElementById("output");
+                outputDiv.innerHTML = ""; 
+
+                let postDiv = document.createElement("div");
+                postDiv.innerHTML = `<h1>${data.title}</h1><p>${data.content}</p>`;
+                outputDiv.appendChild(postDiv);
+            })
+            .catch(error => {
+                console.error('Error fetching post:', error);
+                let outputDiv = document.getElementById("output");
+                outputDiv.innerHTML = `<p style="color: red;">Failed to fetch the post. Please try again later.</p>`;
+            });
+    });
+    </script>
+
+
+<!-- <div style="margin-top: 20px;">
+    <input type="number" id="updatePostId" placeholder="Enter Post ID to Update" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; width: 100%; max-width: 300px; margin-bottom: 10px;" />
+    <input type="text" id="updatePostTitle" placeholder="Enter New Title" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; width: 100%; max-width: 300px; margin-bottom: 10px;" />
+    <textarea id="updatePostContent" placeholder="Enter New Content" style="padding: 10px; border: 1px solid #ccc; border-radius: 6px; font-size: 16px; width: 100%; max-width: 300px; margin-bottom: 10px; resize: vertical;"></textarea>
+    <button id="btnUpdatePost" style="padding: 10px; background-color: #0f1a31; color: white; border: none; border-radius: 6px; font-size: 16px; cursor: pointer;">Update Post</button>
+</div> -->
+
+<!--<script>
+    // Event listener for updating a post
+    document.getElementById("btnUpdatePost").addEventListener("click", function() {
+        const postId = document.getElementById("updatePostId").value;
+        const title = document.getElementById("updatePostTitle").value;
+        const content = document.getElementById("updatePostContent").value;
+
+        if (!postId || !title || !content) {
+            alert("Please fill in all fields to update the post.");
+            return;
+        }
+
+        fetch(`https://test.blockfuselabs.com/api/posts/${postId}`, {
+            method: "PUT",
+            headers: {
+                accept: "application/json",
+                "Content-Type": "application/json",
+                Authorization:"Bearer 154|iwI0p2pXjbmxOBny7g0M86ZDDdj8AEBhpmzo8Heic993c7fe"
+            },
+            body: JSON.stringify({
+                title: title,
+                content: content
+            })
+        })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                const outputDiv = document.getElementById("output");
+                outputDiv.innerHTML = `<p style="color: green;">Post updated successfully!</p>`;
+            })
+            .catch(error => {
+                console.error('Error updating post:', error);
+                const outputDiv = document.getElementById("output");
+                outputDiv.innerHTML = `<p style="color: red;">Failed to update the post. Please try again later.</p>`;
+            });
+    });
+</script>-->
+    
+</body>
+</html>
